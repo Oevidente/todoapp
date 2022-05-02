@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ConnecionFactory {
+public class ConnectionFactory {
   
   //Estipular o driver de conexão (banco de dados.driver)
   //jdbc é uma dependência do java para acessar o banco de dados
-  public static final String DRIVER = "com.mysql.jdbc.Driver";
+  public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
   //Estipular o caminho do banco de dados (driver:banco mysql:servidor:porta/banco de dados)
   public static final String URL = "jdbc:mysql://localhost:3306/todoapp";

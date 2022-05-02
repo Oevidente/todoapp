@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.task;
-import util.ConnecionFactory;
+import util.ConnectionFactory;
 
 public class TaskController {
   
@@ -26,7 +26,7 @@ public class TaskController {
 
     try {
       //Instancia a conexão com o banco de dados
-      connection = ConnecionFactory.getConnection();
+      connection = ConnectionFactory.getConnection();
 
       //Cria o statement para inserir os dados
       statement = connection.prepareStatement(sql);
@@ -46,7 +46,7 @@ public class TaskController {
     } catch (Exception ex) {
       throw new RuntimeException("Erro ao salvar tarefa" + ex.getMessage(), ex);
     } finally {
-      ConnecionFactory.closeConnection(connection, statement);
+      ConnectionFactory.closeConnection(connection, statement);
       
     }
 
@@ -69,7 +69,7 @@ public class TaskController {
 
     try {
       //Estabelecendo conexão com o banco de dados
-      connection = ConnecionFactory.getConnection();
+      connection = ConnectionFactory.getConnection();
 
       //Preparando a query
       statement = connection.prepareStatement(sql);
@@ -101,7 +101,7 @@ public class TaskController {
     
     try {
       //Criando a conexão com o banco de dados
-      connection = ConnecionFactory.getConnection();
+      connection = ConnectionFactory.getConnection();
       
       //Preparando o statement
       statement = connection.prepareStatement(sql);
@@ -114,7 +114,7 @@ public class TaskController {
     } catch (Exception ex) {      
       throw new RuntimeException("Erro ao deletar tarefa" + ex.getMessage());
     } finally {
-      ConnecionFactory.closeConnection(connection, statement);
+      ConnectionFactory.closeConnection(connection, statement);
     }
 
   }
@@ -131,7 +131,7 @@ public class TaskController {
 
     try {
       //conecta ao banco de dados
-      connection = ConnecionFactory.getConnection(); 
+      connection = ConnectionFactory.getConnection(); 
 
       //prepara o statement
       statement = connection.prepareStatement(sql); 
@@ -161,7 +161,7 @@ public class TaskController {
     } catch (Exception e) {
       throw new RuntimeException("Erro ao inserir a tarefa" + e.getMessage(), e);
     } finally {
-      ConnecionFactory.closeConnection(connection, statement, resultSet);
+      ConnectionFactory.closeConnection(connection, statement, resultSet);
     }
 
     //Lista de tarefas que foi criada e carregada com as tarefas do banco de dados
