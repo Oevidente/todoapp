@@ -2,7 +2,9 @@ package controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.task;
 import util.ConnecionFactory;
@@ -96,6 +98,37 @@ public class TaskController {
   }
 
   public List<task> getAll(int idProject) {
+    String sql = "SELECT * FROM tasks WHERE idProject = ?";
+
+    Connection connection = null;
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+    
+    List<task> tasks = new ArrayList<task>();//nova lista de tarefas
+
+    try {
+      connection = ConnecionFactory.getConnection();
+      statement = connection.prepareStatement(sql);
+      statement.setInt(1, idProject);
+      statement.executeQuery(); //devolve um valor de resposta do select que aconteceu no banco de dados
+      resultSet = statement.getResultSet(); //pega o resultado do select (tarefas)
+      while(resultSet.next()) {
+        task task = new task(); //iniciar uma nova tarefa
+        task.setId(resultSet.getInt("id"));
+        task.setIdProject(resultSet.getInt("idProject"));
+        task.setName(resultSet.getString("name"));
+        task.setDescription(resultSet.getString("description"));
+        task.setIsCompleted(resultSet.getBoolean("completed"));
+        task.setNote(resultSet.getString("notes"));
+        task.setDeadline(resultSet.getDate("deadline"));
+        task.setCreatedAt(resultSet.getDate("createdAt"));
+        task.setUpdatedAt(resultSet.getDate("updatedAt"));
+        tasks.add(task);
+      }
+    } catch (Exception e) {
+
+    }
+
     return null;
   }
 
