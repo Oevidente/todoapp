@@ -36,12 +36,14 @@ public class ConnecionFactory {
       throw new RuntimeException("Erro na conexão com o banco de dados", ex);
     }
   }
-
+  //recebe como parâmetro uma conexão e fecha a mesma
   public static void closeConnection(Connection con) {
     try {
+      //se a conexão não estiver fechada, fecha
       if (con != null) {
         con.close();
       }
+      //se a conexão estiver fechada, error
     } catch (Exception ex) {
       throw new RuntimeException("Erro ao fechar conexão com o banco de dados", ex);
     }
