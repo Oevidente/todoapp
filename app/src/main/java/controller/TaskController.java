@@ -157,7 +157,7 @@ public class TaskController {
 
         //adiciona a tarefa na lista
         tasks.add(task);
-            }
+      }
     } catch (Exception e) {
       throw new RuntimeException("Erro ao inserir a tarefa" + e.getMessage(), e);
     } finally {
