@@ -53,16 +53,7 @@ public class TaskController {
   }
 
   public void update(task task) {
-    String sql = "UPDATE tasks SET "
-    + "idProject = ?"
-    + "name = ?"
-    + "description = ?"
-    + "completed = ?"
-    + "notes = ?"
-    + "deadline = ?"
-    + "createdAt = ?"
-    + "updatedAt = ?"
-    + "WHERE id = ?";
+    String sql = "UPDATE tasks SET idProject = ?, name = ?, description = ?, completed = ?, notes = ?, deadline = ?, createdAt = ?, updatedAt = ? WHERE id = ?";
 
     Connection connection = null;
     PreparedStatement statement = null;
@@ -87,9 +78,20 @@ public class TaskController {
       
       //Executando a query
       statement.execute();
-    } catch (Exception ex) {
-      throw new RuntimeException("Erro ao atualizar tarefa" + ex.getMessage(), ex);
-    } 
+    } catch (SQLException ex) {
+      throw new RuntimeException("Erro ao atualizar tarefa\n" + ex.getMessage(), ex);
+    } finally {
+      try {
+          if (statement != null) {
+              statement.close();
+          }
+          if (connection != null) {
+              connection.close();
+          }
+      } catch (SQLException e) {
+          throw new RuntimeException("Erro ao fechar a conexão", e);
+      }
+  }
 
   }
 
@@ -158,7 +160,7 @@ public class TaskController {
         //adiciona a tarefa na lista
         tasks.add(task);
       }
-    } catch (Exception e) {
+    } catch (SQLException e) {
       throw new RuntimeException("Erro ao inserir a tarefa" + e.getMessage(), e);
     } finally {
       ConnectionFactory.closeConnection(connection, statement, resultSet);

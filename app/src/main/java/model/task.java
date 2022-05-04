@@ -27,7 +27,10 @@ public class task {
   }
   
   public task(){
+    this.isCompleted = false;
+    this.deadline = new Date();
     this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 
   public int getId() {
